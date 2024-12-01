@@ -66,7 +66,8 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             g.setFont(new Font("serif", Font.BOLD, 20));
             g.drawString("Press Enter to Restart", 230, 350);
         }
-
+        
+        //win condition
         if (totalBricks == 0) {
             play = false;
             ballXDir = 0;
@@ -121,7 +122,8 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
             ballPosX += ballXDir;
             ballPosY += ballYDir;
-
+            
+            //flip direction if out of bounds
             if (ballPosX < 0) {
                 ballXDir = -ballXDir;
             }
