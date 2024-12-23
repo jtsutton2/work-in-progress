@@ -232,13 +232,13 @@
             <div class="section-details">
                 <ul>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - CAD Design <span>Proficient in AutoCAD and other design software for creating detailed engineering drawings.</span>
+                        <i>Programming Languages</i> <span> such as C/C++, Java, Python, HTML/CSS, MATLAB, Verilog/VHDL, JavaScipt, and C#.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Project Management <span>Experience leading teams and managing projects to completion on time and within budget.</span>
+                        <i>Softwares</i> <span>such as Microsoft Office, Google G Suite,  Adobe Creative Cloud, Bluebeam Revu, Fusion 360, AutoCAD, MicroStation, OpenBridgeDesigner, and OpenRoadsDesigner.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Data Analysis <span>Skilled in analyzing data to make informed decisions and optimize processes.</span>
+                        Data Analysis <span>Skilled in analyzing data to make informed decisions and optimize processes.</span>
                     </li>
                 </ul>
             </div>
@@ -301,9 +301,32 @@
             sections.forEach(function(section) {
                 if (section !== selectedSection) {
                     section.classList.remove('active');
+                    showTooltip(section); // Keep showing tooltip on inactive sections
                 }
             });
+            
             selectedSection.classList.toggle('active');
+            
+            if (selectedSection.classList.contains('active')) {
+              hideTooltip(selectedSection);
+            }
+            
+            // Hide tooltip for the active section (just in case)
+            hideTooltip(selectedSection);
+        }
+        
+        // Function to hide the tooltip
+        function hideTooltip(section) {
+          const tooltip = section.querySelector('.tooltip');
+          tooltip.style.visibility = 'hidden';
+          tooltip.style.opacity = 0;
+        }
+
+        // Function to show the tooltip
+        function showTooltip(section) {
+          const tooltip = section.querySelector('.tooltip');
+          tooltip.style.visibility = 'visible';
+          tooltip.style.opacity = 1;
         }
 
         // Show full summary on hover
@@ -361,8 +384,17 @@
 
       document.querySelectorAll('.section').forEach(section => {
           section.addEventListener('mouseenter', () => {
-            const tooltip = section.querySelector('.tooltip');
-            handleTooltipPosition(section, tooltip);
+            if (!section.classList.contains('active')) { // Only show tooltip for inactive sections
+              const tooltip = section.querySelector('.tooltip');
+              handleTooltipPosition(section, tooltip);
+              showTooltip(section);  // Show tooltip on hover for inactive sections
+            }
+        });
+        
+        section.addEventListener('mouseleave', () => {
+          if (!section.classList.contains('active')) { // Keep tooltip hidden for inactive sections
+            hideTooltip(section); // Hide tooltip when mouse leaves inactive sections
+          }
         });
       });
 
