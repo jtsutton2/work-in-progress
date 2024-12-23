@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            margin: 10px;
+            padding: 20px;
+            width: 280px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .section:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .section-details {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section.active .section-details {
+            display: block;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Resume</h1>
+        <p>Welcome to my professional portfolio</p>
+    </header>
+
+    <div class="container">
+        <div class="section" onclick="toggleDetails(this)">
+            <h2>Experience</h2>
+            <p>Work experience details here</p>
+            <div class="section-details">
+                <p>Here are the details of my work experience...</p>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleDetails(this)">
+            <h2>Education</h2>
+            <p>Education details here</p>
+            <div class="section-details">
+                <p>Here are the details of my education...</p>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleDetails(this)">
+            <h2>Skills</h2>
+            <p>Skills details here</p>
+            <div class="section-details">
+                <p>Here are the details of my skills...</p>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleDetails(this)">
+            <h2>Projects</h2>
+            <p>Projects details here</p>
+            <div class="section-details">
+                <p>Here are the details of my projects...</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="your-resume.pdf" class="download-btn" download="My_Resume.pdf">Download PDF</a>
+
+    <footer>
+        <p>&copy; 2024 My Resume</p>
+    </footer>
+
+    <script>
+        // JavaScript function to toggle the visibility of the section details
+        function toggleDetails(section) {
+            section.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
