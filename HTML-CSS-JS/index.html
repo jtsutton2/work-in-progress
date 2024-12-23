@@ -72,6 +72,29 @@
             display: block;
         }
 
+        .bullet-point span {
+        display: none;
+        color: #555;
+        font-size: 0.9em;
+        margin-top: 5px;
+        }
+
+       /* On hover, show the full description */
+        .bullet-point:hover span {
+        display: block;
+        }
+
+        /* Ensure that when the "Experience" section is clicked, 
+       it only toggles the visibility of the short bullet points, 
+       not the expanded descriptions. */
+        .section-details {
+        display: none; /* Hide bullet points initially */
+        }
+
+        .section.active .section-details {
+        display: block; /* Show bullet points when active */
+       }
+
         .download-btn {
             display: inline-block;
             margin-top: 30px;
@@ -104,19 +127,38 @@
     </header>
 
     <div class="container">
+        <!-- Experience Section with Bullet Points that Expand on Hover and Toggle on Click -->
         <div class="section" onclick="toggleDetails(this)">
             <h2>Experience</h2>
-            <p>Work experience details here</p>
+            <p>Click to view my work experience</p>
             <div class="section-details">
-                <p>Here are the details of my work experience...</p>
+                <ul>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Designed organized CAD plans <span>by working with clients, senior engineers, and upper management to meet state and federal standards.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Inspected field conditions <span>at various sites and catalogued them for use in the design process.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Collected and reported data <span>for a federal grant program to track and visualize project completion.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Engaged in QA/QC <span>as both a reviewer and a reviewee to ensure high standards for all work submittals.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Interfaced with fiber optic infrastructure <span>to create a countywide intelligent network of connected devices in doubly redundant hubs.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Developed new protocols <span>for a submittal process that bridges the gap between proposed and existing architecture.</span>
+                    </li>
+                </ul>
             </div>
         </div>
 
+        <!-- Other Sections -->
         <div class="section" onclick="toggleDetails(this)">
             <h2>Education</h2>
-            <h3>NC State College of Engineering</h3>
-            <h4>B.S. in Electrical Enginering</h4>
-            <h4>B.S. in Computer Engineering</h4>
+            <p>Education details here</p>
             <div class="section-details">
                 <p>Here are the details of my education...</p>
             </div>
@@ -146,20 +188,26 @@
     </footer>
 
     <script>
-        // JavaScript function to toggle the visibility of the section details
+        // Toggle function for Experience Section to show/hide the short bullet points
         function toggleDetails(selectedSection) {
-            // Get all sections
-            var sections = document.querySelectorAll('.section');
+        var sections = document.querySelectorAll('.section');
+        sections.forEach(function(section) {
+            if (section !== selectedSection) {
+                section.classList.remove('active');
+            }
+        });
+        selectedSection.classList.toggle('active'); // Toggle the "active" state for Experience section
+    }
 
-            // Loop through each section and collapse it
-            sections.forEach(function(section) {
-                if (section !== selectedSection) {
-                    section.classList.remove('active');
-                }
-            });
+        // Show full summary on hover
+        function showFullSummary(bulletPoint) {
+            bulletPoint.classList.add('active');
+        }
 
-            // Toggle the clicked section's details
-            selectedSection.classList.toggle('active');
+        // Hide full summary when hover ends
+        function hideFullSummary(bulletPoint) {
+            bulletPoint.classList.remove('active');
+        }
     </script>
 </body>
 </html>
