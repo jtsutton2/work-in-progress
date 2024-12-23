@@ -10,6 +10,9 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -29,6 +32,7 @@
             justify-content: center;
             flex-wrap: wrap;
             padding: 20px;
+            flex: 1;
         }
 
         .section {
@@ -41,6 +45,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
         .section:hover {
@@ -53,13 +58,8 @@
             margin-bottom: 10px;
         }
 
-        .section p {
-            font-size: 1.1em;
-            color: #333;
-        }
-
         .section-details {
-            display: none;
+            display: none; /* Initially hide bullet points */
             margin-top: 20px;
             padding: 10px;
             background-color: #f9f9f9;
@@ -69,34 +69,63 @@
         }
 
         .section.active .section-details {
-            display: block;
+            display: block; /* Show bullet points when active */
         }
 
         .bullet-point span {
-        display: none;
-        color: #555;
-        font-size: 0.9em;
-        margin-top: 5px;
+            display: none; /* Initially hide expanded details */
         }
 
-       /* On hover, show the full description */
-        .bullet-point:hover span {
-        display: block;
+        .bullet-point.active span {
+            display: inline; /* Show expanded details when active */
         }
 
-        /* Ensure that when the "Experience" section is clicked, 
-       it only toggles the visibility of the short bullet points, 
-       not the expanded descriptions. */
-        .section-details {
-        display: none; /* Hide bullet points initially */
+        /* Button to open the "Learn More" section */
+        .learn-more-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            display: block;
+            text-align: center;
         }
 
-        .section.active .section-details {
-        display: block; /* Show bullet points when active */
-       }
+        .learn-more-btn:hover {
+            background-color: #555;
+        }
 
-        .download-btn {
-            display: inline-block;
+        /* Full-screen in-depth section */
+        .in-depth-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 40px;
+            overflow-y: scroll;
+        }
+
+        .in-depth-section.active {
+            display: block;
+        }
+
+        .in-depth-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .in-depth-section p {
+            font-size: 1.2em;
+        }
+
+        .back-btn {
             margin-top: 30px;
             padding: 10px 20px;
             background-color: #333;
@@ -107,16 +136,55 @@
             transition: background-color 0.3s ease;
         }
 
-        .download-btn:hover {
+        .back-btn:hover {
             background-color: #555;
         }
 
+        /* Hover tooltip */
+        /* Tooltip positioning fix */
+        .tooltip {
+          visibility: hidden;
+          position: absolute;
+          top: 50%;
+          left: 100%; /* Default position to the right */
+          background-color: #333;
+          color: #fff;
+          padding: 5px;
+          border-radius: 5px;
+          font-size: 0.9em;
+          z-index: 9999; /* Ensure the tooltip stays above other content */
+          opacity: 0;
+          transition: opacity 0.3s ease, visibility 0s 0.3s; /* Fade in with delay */
+          transform: translateY(-50%); /* Vertically center the tooltip */
+          max-width: 250px; /* Limit the width of the tooltip */
+          word-wrap: break-word; /* Allow long words to break and wrap */
+          white-space: normal; /* Ensure that text wraps and doesn't overflow */
+        }
+
+        .section:hover .tooltip {
+          visibility: visible;
+          opacity: 1;
+          z-index: 9999;
+          transition-delay: 0.75s; /* Tooltip appears after hovering */
+        }
+
+        /* If tooltip goes out of bounds, adjust to left */
+        .section:hover .tooltip.left {
+          left: auto;
+          right: 100%; /* Position tooltip to the left */
+        }
+
+
+        .section {
+            position: relative;
+        }
+
         footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
             background-color: #333;
             color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto; /* Ensures footer is at the bottom */
         }
     </style>
 </head>
@@ -127,77 +195,116 @@
     </header>
 
     <div class="container">
-        <!-- Experience Section with Bullet Points that Expand on Hover and Toggle on Click -->
+        <!-- Experience Section -->
         <div class="section" onclick="toggleDetails(this)">
             <h2>Experience</h2>
             <p>Click to view my work experience</p>
             <div class="section-details">
                 <ul>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Designed organized CAD plans <span>by working with clients, senior engineers, and upper management to meet state and federal standards.</span>
+                        <i>Designed organized CAD plans</i> <span>by working with clients, senior engineers, and upper management to meet state and federal standards.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Inspected field conditions <span>at various sites and catalogued them for use in the design process.</span>
+                        <i>Inspected field conditions</i> <span>at various sites and catalogued them for use in the design process.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Collected and reported data <span>for a federal grant program to track and visualize project completion.</span>
+                        <i>Collected and reported data</i> <span> for a federal grant program to track and visualize project completion.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Engaged in QA/QC <span>as both a reviewer and a reviewee to ensure high standards for all work submittals.</span>
+                        <i>Engaged in QA/QC</i> <span> as both a reviewer and a reviewee to ensure high standards for all work submittals.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Interfaced with fiber optic infrastructure <span>to create a countywide intelligent network of connected devices in doubly redundant hubs.</span>
+                        <i>Interfaced with fiber optic infrastructure</i> <span>to create a countywide intelligent network of connected devices in doubly redundant hubs.</span>
                     </li>
                     <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
-                        - Developed new protocols <span>for a submittal process that bridges the gap between proposed and existing architecture.</span>
+                        <i>Developed new protocols</i> <span>for a submittal process that bridges the gap between proposed and existing architecture.</span>
                     </li>
                 </ul>
             </div>
+            <a href="javascript:void(0)" class="learn-more-btn" onclick="openInDepth('Experience')">Click here to learn more</a>
+            <div class="tooltip">Click to expand for more details</div>
         </div>
 
-        <!-- Other Sections -->
-        <div class="section" onclick="toggleDetails(this)">
-            <h2>Education</h2>
-            <p>Education details here</p>
-            <div class="section-details">
-                <p>Here are the details of my education...</p>
-            </div>
-        </div>
-
+        <!-- Skills Section -->
         <div class="section" onclick="toggleDetails(this)">
             <h2>Skills</h2>
-            <p>Skills details here</p>
+            <p>Click to view my skills</p>
             <div class="section-details">
-                <p>Here are the details of my skills...</p>
+                <ul>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - CAD Design <span>Proficient in AutoCAD and other design software for creating detailed engineering drawings.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Project Management <span>Experience leading teams and managing projects to completion on time and within budget.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Data Analysis <span>Skilled in analyzing data to make informed decisions and optimize processes.</span>
+                    </li>
+                </ul>
             </div>
+            <a href="javascript:void(0)" class="learn-more-btn" onclick="openInDepth('Skills')">Click here to learn more</a>
+            <div class="tooltip">Click to expand for more details</div>
         </div>
 
+        <!-- Projects Section -->
         <div class="section" onclick="toggleDetails(this)">
             <h2>Projects</h2>
-            <p>Projects details here</p>
+            <p>Click to view my projects</p>
             <div class="section-details">
-                <p>Here are the details of my projects...</p>
+                <ul>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Smart City Infrastructure <span>Worked on a project to implement smart city technologies in an urban environment.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Renewable Energy Systems <span>Developed designs for sustainable energy solutions for a local community.</span>
+                    </li>
+                </ul>
             </div>
+            <a href="javascript:void(0)" class="learn-more-btn" onclick="openInDepth('Projects')">Click here to learn more</a>
+            <div class="tooltip">Click to expand for more details</div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="section" onclick="toggleDetails(this)">
+            <h2>Education</h2>
+            <p>Click to view my educational background</p>
+            <div class="section-details">
+                <ul>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - B.S. in Engineering <span>Graduated with honors from XYZ University.</span>
+                    </li>
+                    <li class="bullet-point" onmouseover="showFullSummary(this)" onmouseout="hideFullSummary(this)">
+                        - Certification in Project Management <span>Completed a certification program from ABC Institute.</span>
+                    </li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" class="learn-more-btn" onclick="openInDepth('Education')">Click here to learn more</a>
+            <div class="tooltip">Click to expand for more details</div>
+        </div>
+
+        <!-- In-Depth Section (Hidden Initially) -->
+        <div class="in-depth-section" id="inDepthSection">
+            <h2 id="inDepthTitle">In-depth Information</h2>
+            <p id="inDepthContent">More detailed content will go here...</p>
+            <a href="javascript:void(0)" class="back-btn" onclick="closeInDepth()">Back to Home</a>
         </div>
     </div>
-
-    <a href="your-resume.pdf" class="download-btn" download="My_Resume.pdf">Download PDF</a>
 
     <footer>
         <p>&copy; 2024 My Resume</p>
     </footer>
 
     <script>
-        // Toggle function for Experience Section to show/hide the short bullet points
+        // Toggle function for Section to show/hide the full list of bullet points
         function toggleDetails(selectedSection) {
-        var sections = document.querySelectorAll('.section');
-        sections.forEach(function(section) {
-            if (section !== selectedSection) {
-                section.classList.remove('active');
-            }
-        });
-        selectedSection.classList.toggle('active'); // Toggle the "active" state for Experience section
-    }
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                if (section !== selectedSection) {
+                    section.classList.remove('active');
+                }
+            });
+            selectedSection.classList.toggle('active');
+        }
 
         // Show full summary on hover
         function showFullSummary(bulletPoint) {
@@ -208,6 +315,57 @@
         function hideFullSummary(bulletPoint) {
             bulletPoint.classList.remove('active');
         }
+
+        // Open the in-depth section
+        function openInDepth(section) {
+            var inDepthTitle = document.getElementById('inDepthTitle');
+            var inDepthContent = document.getElementById('inDepthContent');
+            if (section === 'Experience') {
+                inDepthTitle.textContent = 'Experience Details';
+                inDepthContent.innerHTML = 'Here is a detailed context about my work experience...';
+            } else if (section === 'Skills') {
+                inDepthTitle.textContent = 'Skills Details';
+                inDepthContent.innerHTML = 'Here is a detailed context about my skills...';
+            } else if (section === 'Projects') {
+                inDepthTitle.textContent = 'Projects Details';
+                inDepthContent.innerHTML = 'Here is a detailed context about my projects...';
+            } else if (section === 'Education') {
+                inDepthTitle.textContent = 'Education Details';
+                inDepthContent.innerHTML = 'Here is a detailed context about my education background...';
+            }
+            document.getElementById('inDepthSection').classList.add('active');
+        }
+
+        // Close the in-depth section and go back home
+        function closeInDepth() {
+            document.getElementById('inDepthSection').classList.remove('active');
+        }
+        
+        // Function to handle tooltip position dynamically
+        function handleTooltipPosition(section, tooltip) {
+          const rect = section.getBoundingClientRect();
+          const tooltipWidth = tooltip.offsetWidth;
+          const sectionCenter = rect.left + rect.width / 2;
+
+          // Check if the section is in the left or right half of the screen
+          if (sectionCenter < window.innerWidth / 2) {
+              // Section is in the left half of the screen, position tooltip on the left
+              tooltip.style.left = 'auto';
+              tooltip.style.right = '100%'; // Position tooltip to the left of the section
+          } else {
+              // Section is in the right half of the screen, position tooltip on the right
+              tooltip.style.left = '100%'; // Position tooltip to the right of the section
+              tooltip.style.right = 'auto';
+          }
+        }
+
+      document.querySelectorAll('.section').forEach(section => {
+          section.addEventListener('mouseenter', () => {
+            const tooltip = section.querySelector('.tooltip');
+            handleTooltipPosition(section, tooltip);
+        });
+      });
+
     </script>
 </body>
 </html>
