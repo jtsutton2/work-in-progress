@@ -114,7 +114,9 @@
 
         <div class="section" onclick="toggleDetails(this)">
             <h2>Education</h2>
-            <p>Education details here</p>
+            <h3>NC State College of Engineering</h3>
+            <h4>B.S. in Electrical Enginering</h4>
+            <h4>B.S. in Computer Engineering</h4>
             <div class="section-details">
                 <p>Here are the details of my education...</p>
             </div>
@@ -145,9 +147,19 @@
 
     <script>
         // JavaScript function to toggle the visibility of the section details
-        function toggleDetails(section) {
-            section.classList.toggle('active');
-        }
+        function toggleDetails(selectedSection) {
+            // Get all sections
+            var sections = document.querySelectorAll('.section');
+
+            // Loop through each section and collapse it
+            sections.forEach(function(section) {
+                if (section !== selectedSection) {
+                    section.classList.remove('active');
+                }
+            });
+
+            // Toggle the clicked section's details
+            selectedSection.classList.toggle('active');
     </script>
 </body>
 </html>
