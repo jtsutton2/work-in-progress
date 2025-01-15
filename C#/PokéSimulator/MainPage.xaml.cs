@@ -54,6 +54,8 @@ namespace PokemonDamageCalculator
             // Apply critical hit
             double critical = CriticalHitCheckBox.IsChecked ? 1.5 : 1.0;
 
+            //add effective/immunity lookup
+
             // Calculate damage
             double damage = (((2 * 50 / 5 + 2) * move.BasePower * (attack / (double)defense)) / 50 + 2) 
                             * stab * weatherModifier * critical;
