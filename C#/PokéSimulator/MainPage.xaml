@@ -1,0 +1,34 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PokemonDamageCalculator.MainPage"
+             Title="Pokémon Damage Calculator">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Attacker" FontAttributes="Bold" />
+            <Picker x:Name="AttackerPicker" />
+
+            <Label Text="Move" FontAttributes="Bold" />
+            <Picker x:Name="MovePicker" />
+
+            <Label Text="Defender" FontAttributes="Bold" />
+            <Picker x:Name="DefenderPicker" />
+
+            <Label Text="Weather" FontAttributes="Bold" />
+            <Picker x:Name="WeatherPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>None</x:String>
+                        <x:String>Sunny</x:String>
+                        <x:String>Rainy</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <CheckBox x:Name="CriticalHitCheckBox" Content="Critical Hit" />
+
+            <Button Text="Calculate Damage" Clicked="OnCalculateDamageClicked" />
+            <Label x:Name="ResultLabel" Text="Damage: " FontAttributes="Bold" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
