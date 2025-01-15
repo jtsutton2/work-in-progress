@@ -57,7 +57,8 @@ namespace PokemonDamageCalculator
             // Calculate damage
             double damage = (((2 * 50 / 5 + 2) * move.BasePower * (attack / (double)defense)) / 50 + 2) 
                             * stab * weatherModifier * critical;
-
+            
+            //round to nearest int
             // Display result
             ResultLabel.Text = $"Damage: {damage:F2}";
         }
