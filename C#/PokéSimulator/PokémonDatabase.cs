@@ -21,5 +21,12 @@ namespace PokemonDamageCalculator.Models
                 { "Flamethrower", (90, "Special", "Fire") },
                 { "Tackle", (40, "Physical", "Normal") }
             };
+
+        //Type Effectiveness Data: Attacking Type -> (Defending Type -> Multiplier)
+        public static readonly Dictionary<string, Dictionary<string, double>> Effectiveness =
+            new Dictionary<string, Dictionary<string, double>>
+            {
+                {}
+            };
     }
 }
