@@ -42,9 +42,11 @@ namespace PokemonDamageCalculator
             int defense = move.Category == "Physical" ? defender.Defense : defender.SpecialDefense;
 
             // Apply STAB
+            //add adaptability ability
             double stab = attacker.Types.Contains(move.Type) ? 1.5 : 1.0;
 
             // Apply weather effects
+            //add sand force ability
             double weatherModifier = 1.0;
             if (weather == "Sunny" && move.Type == "Fire") weatherModifier = 1.5;
             if (weather == "Rainy" && move.Type == "Water") weatherModifier = 1.5;
@@ -61,3 +63,8 @@ namespace PokemonDamageCalculator
         }
     }
 }
+
+//overall want to add more status effects (leech seed, burn, spikes, etc.)
+//add random 85-100% factor
+//add multi target support
+//random edge cases like air lock
