@@ -32,6 +32,22 @@ def analyze_spending(df):
     
     return monthly_spending
 
+#Create a summary stats table
+def summary_statistics(df)
+    stats = df[['Order Date', 'Item Name', 'Total Cost']].copy()
+    stats_summary = {
+        'Min': df['Total Cost'].min(),
+        'Max': df['Total Cost'].max(),
+        'Median': df['Total Cost'].median(),
+        'Mean': df['Total Cost'].mean(),
+        'Mode': df['Total Cost'].mode()[0] if not df['Total Cost'].mode().empty else np.nan,
+        'Std Dev': df['Total Cost'].std()
+    }
+    
+    print("\nSpending Statistics:")
+    print(pd.DataFrame([stats_summary]))
+    return stats
+
 # Visualize spending trends
 def plot_spending(monthly_spending):
     plt.figure(figsize=(10, 5))
